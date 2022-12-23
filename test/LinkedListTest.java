@@ -1,10 +1,8 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LinkedListTest {
 
@@ -21,8 +19,8 @@ class LinkedListTest {
         list.add(number);
         list.add(3);
 
-        assertEquals(2,list.get(0));
-        assertEquals(3,list.get(1));
+        assertEquals(2, list.get(0));
+        assertEquals(3, list.get(1));
     }
 
     @Test
@@ -40,5 +38,15 @@ class LinkedListTest {
         strings.add("xxx");
 
         assertEquals("xxx", strings.get(0));
+    }
+
+    @Test
+    void shouldFindLengthOfLinkedList() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+
+        assertEquals(4, list.length());
     }
 }
