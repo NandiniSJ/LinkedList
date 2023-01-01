@@ -49,4 +49,99 @@ class LinkedListTest {
 
         assertEquals(4, list.length());
     }
+
+    @Test
+    void shouldRemoveANode() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.remove(2);
+
+        assertEquals(40,list.get(2));
+        assertEquals(3,list.length());
+    }
+
+    @Test
+    void shouldRemoveHeadNode() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.remove(0);
+
+        assertEquals(20,list.get(0));
+    }
+
+    @Test
+    void shouldAddFirst() {
+        list.addFirst(10);
+        list.addFirst(20);
+        list.addFirst(30);
+        list.addFirst(40);
+
+        assertEquals(40,list.get(0));
+    }
+
+    @Test
+    void shouldAddNewNode() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.add(0,45);
+        list.add(2,25);
+
+        assertEquals(25,list.get(2));
+        assertEquals(45,list.get(0));
+    }
+
+    @Test
+    void shouldInsertAtGivenPosition() { //10, 20, 30, // 10,40,20,30 // 10 40 50 20 30
+        list.insert(10,1);
+        list.insert(20,2);
+        list.insert(30,3);
+        list.insert(40,2);
+        list.insert(50,3);
+
+        assertEquals(40, list.get(1));
+        assertEquals(20, list.get(3));
+
+    }
+
+    @Test
+    void shouldDeleteFirst() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.deleteFirst();
+
+        assertEquals(20,list.get(0));
+
+    }
+
+    @Test
+    void shouldDeleteValueOfGivenIndex() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+
+        list.delete(1);
+
+        assertEquals(30, list.get(1));
+    }
+
+    @Test
+    void shouldDeleteLastNode() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+
+        list.deleteLast();
+
+        assertEquals(3, list.length());
+    }
 }

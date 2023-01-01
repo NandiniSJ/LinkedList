@@ -5,8 +5,11 @@ public class Main {
         list.add(20);
         list.add(30);
         list.add(40);
+        //list.display();
+        //System.out.println(list.length());
+        System.out.println(list.deleteFirst().getValue());
         list.display();
-        System.out.println(list.length());
+
 
     }
 }
