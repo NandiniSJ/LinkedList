@@ -144,4 +144,84 @@ class LinkedListTest {
 
         assertEquals(3, list.length());
     }
+
+    @Test
+    void shouldFindMiddleNodeWhenListContainsEvenNumberOfElements() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+
+        assertEquals(20,list.findMiddleNode());
+    }
+
+    @Test
+    void shouldFindMiddleNodeWhenListContainsOddNumberOfElements() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.add(50);
+
+        assertEquals(30,list.findMiddleNode());
+    }
+
+    @Test
+    void shouldFindNthNodeFromEndFromLinkedList(){
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.add(50);
+
+        assertEquals(40,list.findNthNode(2));
+    }
+
+    @Test
+    void shouldDeleteDuplicateNodeFromLinkedList() {
+        list.add(10);
+        list.add(20);
+        list.add(20);
+        list.add(40);
+        list.add(50);
+        list.deleteDuplicate();
+
+        assertEquals(40,list.get(2));
+    }
+
+    @Test
+    void shouldInsertNodeToSortedList() {
+        list.add(10);
+        list.add(20);
+        list.add(28);
+        list.add(40);
+        list.add(50);
+        list.insertNodeToSortedList(25);
+
+        assertEquals(6, list.length());
+        assertEquals(25, list.get(2));
+    }@Test
+    void shouldInsertDuplicateNodeToSortedList() {
+        list.add(10);
+        list.add(20);
+        list.add(25);
+        list.add(40);
+        list.add(50);
+        list.insertNodeToSortedList(25);
+
+        assertEquals(6, list.length());
+        assertEquals(25, list.get(2));
+    }
+
+    @Test
+    void shouldDeleteGivenNodeByValue() {
+        list.add(10);
+        list.add(20);
+        list.add(25);
+        list.add(40);
+        list.add(50);
+        list.delete(Integer.valueOf(25));
+        assertEquals(4, list.length());
+        assertEquals(40,list.get(2));
+    }
 }

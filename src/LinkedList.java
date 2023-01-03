@@ -1,4 +1,4 @@
-public class LinkedList<T> {
+public class LinkedList<T extends Comparable> {
     private Node<T> head = null;
 
     public void add(T number) {
@@ -20,15 +20,15 @@ public class LinkedList<T> {
         head = newNode;
     }
 
-    public void insert(T value, int position){
-        Node<T> newNode = new Node<T>(value,null);
-        if(position ==1){
+    public void insert(T value, int position) {
+        Node<T> newNode = new Node<T>(value, null);
+        if (position == 1) {
             newNode.setNextNode(head);
             head = newNode;
-        }else {
+        } else {
             Node<T> previous = head;
             int count = 1;
-            while(count < position - 1){
+            while (count < position - 1) {
                 previous = previous.getNextNode();
                 count++;
             }
@@ -42,7 +42,7 @@ public class LinkedList<T> {
 
 
     public void display() {
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             System.out.print(current.getValue() + "-->");
             current = current.getNextNode();
@@ -55,7 +55,7 @@ public class LinkedList<T> {
             return 0;
         }
         int count = 0;
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             count++;
             current = current.getNextNode();
@@ -64,21 +64,21 @@ public class LinkedList<T> {
         return count;
     }
 
-    public Node deleteFirst(){
-        if(head == null){
+    public Node<T> deleteFirst() {
+        if (head == null) {
             return null;
         }
         Node<T> temp = head;
         head = head.getNextNode();
         temp.setNextNode(null);
-        return temp ;
+        return temp;
     }
 
-    public void deleteLast(){
-        if(head == null){
+    public void deleteLast() {
+        if (head == null) {
             return;
         }
-        if(head.getNextNode() == null){
+        if (head.getNextNode() == null) {
             head = null;
             return;
         }
@@ -86,28 +86,29 @@ public class LinkedList<T> {
         Node<T> previousNode = head;
         Node<T> currentNode = head;
 
-        while(currentNode.getNextNode() != null){
+        while (currentNode.getNextNode() != null) {
             previousNode = currentNode;
             currentNode = currentNode.getNextNode();
         }
         previousNode.setNextNode(null);
     }
 
-    public void delete(int index){
-        if(index == 0){
+    public void delete(int index) {
+        if (index == 0) {
             head = head.getNextNode();
             return;
         }
         Node<T> current = head;
         int currentIndex = 0;
-        while(currentIndex != index-1){
+        while (currentIndex != index - 1) {
             current = current.getNextNode();
-            currentIndex ++;
+            currentIndex++;
         }
         Node<T> nodeToBeDeleted = current.getNextNode();
         current.setNextNode(nodeToBeDeleted.getNextNode());
         nodeToBeDeleted.setNextNode(null);
     }
+
 
     public T get(int index) {
         if (index == 0) {
@@ -132,8 +133,8 @@ public class LinkedList<T> {
     public void add(int index, T value) {
         Node<T> current = head;
         int i = 0;
-        if(index == 0){
-            Node<T> newNode = new Node<>(value, head);
+        if (index == 0) {
+            Node<T> newNode = new Node<T>(value, head);
             head = newNode;
             return;
         }
@@ -148,27 +149,151 @@ public class LinkedList<T> {
         }
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         Node<T> current = head;
         int i = 0;
 
-        if(index == 0){
+        if (index == 0) {
             head = head.getNextNode();
             return;
         }
-        while(current.getNextNode() != null){
+        while (current.getNextNode() != null) {
             i++;
             current = current.getNextNode();
-            if(i == index-1){
+            if (i == index - 1) {
                 Node<T> nodeToBeDeleted = current.getNextNode();
                 current.setNextNode(nodeToBeDeleted.getNextNode());
                 return;
             }
         }
     }
+
+    public T findMiddleNode() {
+        if (head == null) {
+            return null;
+        }
+        if (head.getNextNode() == null) {
+            return head.getValue();
+        }
+
+        Node<T> slowPointer = head;
+        Node<T> fastPointer = head;
+        int count = 1;
+        while (fastPointer.getNextNode() != null) {
+            count++;
+            fastPointer = fastPointer.getNextNode();
+            if (count % 2 != 0) {
+                slowPointer = slowPointer.getNextNode();
+            }
+        }
+        return slowPointer.getValue();
+    }
+
+    public T findNthNode(int n) {
+        if (head == null) {
+            return null;
+        }
+        if (head.getNextNode() == null) {
+            return head.getValue();
+        }
+        Node<T> slowPointer = head;
+        Node<T> fastPointer = head;
+        int count = 1;
+        while (fastPointer.getNextNode() != null) {
+            count++;
+            fastPointer = fastPointer.getNextNode();
+            if (count > n) {
+                slowPointer = slowPointer.getNextNode();
+            }
+        }
+        return slowPointer.getValue();
+    }
+
+    public void deleteDuplicate() {
+        if (head == null) {
+            return;
+        }
+        if (head.getNextNode() == null) {
+            return;
+        }
+
+        Node<T> previous = head;
+        Node<T> current = head;
+        while (current.getNextNode() != null) {
+            previous = current;
+            current = current.getNextNode();
+
+            if (previous.getValue() == current.getValue()) {
+                Node<T> temp = current.getNextNode();
+                current.setNextNode(null);
+                previous.setNextNode(temp);
+                return;
+            }
+        }
+    }
+
+    public void insertNodeToSortedList(T value){
+        Node<T> node = new Node<>(value, null);
+        if (head == null) {
+            node = head;
+        }
+        if (head.getNextNode() == null) {
+            if(head.getValue().compareTo(node.getValue()) > 0){
+                node.setNextNode(head);
+                head = node;
+            }else{
+                head.setNextNode(node);
+            }
+        }
+
+        Node<T> current = head;
+        Node<T> previous = head;
+        if(previous.getValue().compareTo(node.getValue())> 0) {
+            node.setNextNode(previous);
+            head = node;
+            return;
+        }
+        while(current.getNextNode() != null){
+            previous = current;
+            current = current.getNextNode();
+
+            if(previous.getValue().compareTo(node.getValue()) <= 0 && current.getValue().compareTo(node.getValue()) > 0) {
+                previous.setNextNode(node);
+                node.setNextNode(current);
+                return;
+            }
+        }
+        current.setNextNode(node);
+    }
+
+    public void delete(T value){
+        if(head == null){
+            return;
+        }
+
+        if(head.getValue().equals(value)){
+            Node<T> temp = head.getNextNode();
+            head.setNextNode(null);
+            head = temp;
+            return;
+        }
+        Node<T> current = head.getNextNode();
+        Node<T> previous = head;
+        while(current != null){
+
+            if(current.getValue().equals(value)){
+                Node<T> temp = current.getNextNode();
+                current.setNextNode(null);
+                previous.setNextNode(temp);
+            }
+            previous = current;
+            current = current.getNextNode();
+        }
+    }
+
 }
 
-class Node<T> {
+class Node<T extends Comparable> {
     private final T value;
     private Node<T> nextNode;
 
